@@ -1,0 +1,340 @@
+java(咖啡冻)
+html5基础
+Extensible Hypertext Makeup Language 可扩展超文本标记语言
+W3C word wide web consortioum 万维网
+<标记 属性="属性值"></标记>
+具体元素
+	头标签:
+		<meta>能提供关于页面的元信息，总是以属性和值的方式传递。属性值有:name content/http-equiv
+		<meta name="keywords/description/refresh" content="描述">
+		利于SEO(search engine optimization)，name中设置的信息要真实原创：关键字/网页描述/网页重定向
+	设置页面的相关内容，可以模拟一个刷新操作:
+		Refresh(刷新)
+	　　说明：自动刷新并指向新页面。
+	　　用法：＜meta http-equiv="Refresh" content="2；URL=http://www.root.NET"＞
+	　　注意：其中的2是指停留2秒钟后自动刷新到URL网址
+		   <base>设置页面超链接的属性
+				<base target="_blank">所有超链接在新窗口打开
+		   <link rel="stylesheet/icon">引用外部文档,设置icon图标
+		   		设置网页小图标
+		   		用法：<link rel="stylesheet" href="./demo.css">
+		   		<link rel="icon" href="./demo.jpg">
+	注释:<!--XXXXX--> 快捷键ctrl + /
+	文本<h1> 标题
+		<p>段落
+		文本格式化标签
+			<b><strong> 加粗，推荐strong
+			<ins><u>下划线,推荐ins，符合语义化
+			<em> <i>字体倾斜,使用em
+			<del><s>删除线,推荐使用del
+		<pre>原样输出 <sub><sup>上下标
+		<br/> 强制换行
+		自关闭标签
+			<hr> 横线 <img> <link> <input>
+		背景音乐<audio src="" controls="controls" autoplay="autoplay" loop="loop">
+			只要出现了,就响应相应的属性，分别是可控，自动播放，循环
+		视频播放<video src="">
+			control：向用户显示播放插件
+			src:视频url地址
+				兼容写法符合优雅降级
+					<source src="" type="audio/mpeg">
+					<source src="" type="audio/ogg">
+						您的浏览器不支持,请升级到最新版
+			autoplay：自动播放
+			loop：是否循环
+			preload：是否等加载完在播放
+			poster：等待加载时的画面图片，值为url地址
+			muted：静音播放，可以解决无法自动播放的问题,浏览器会关闭掉背景音
+		<address> 地址
+		<code> 网页显示部分代码 <pre> 显示段落代码
+		<font>取值范围1-7
+	列表:无序列表<ul type="circle/disc/square"> li前为空心小圆圈/实心小圆圈/方块
+		有序列表<ol type="1/a/i"> li前为数字字母罗马数字
+		自定义列表<dl><dt>小标题</dt><dd>解释标题
+		</dd></dl>
+		转义:&gt;&lt;&amp;&nbsp;great/less than;ampersand;non-breaking space的缩写,大于小于与号不间断空格
+	超链接 <a href="绝对路径/相对路径"> target属性:_blank/_parent/_self
+		<a href="mailto:邮件地址1;邮件地址2?cc=抄送地址&bcc=密件抄送地址&subject=主题&body=邮件正文"><a>
+	***图片<img src="图片地址" alt="图像不能显示时的替换文本"  titil="鼠标悬停提示文本" width="宽" height="高" border="边框">
+	结构块 <div>:division的缩写，分区
+	文本区域 <span>
+	文本缩进 <blockquote>
+	进度条 <progress>利用js操作
+	表格
+		<table border="表格线" border-color="blue" cellspancing="间隙">
+		 </table>
+		rowspan:跨行合并
+		colspan:跨列合并 <th rowspan="2" colspan="2">
+		​将多个内容合并的时候，就会有多余的东西，把它删除。 例如 把 3个 td 合并成一个， 那就多余了2个，需要删除。
+​ 		公式： 删除的个数 = 合并的个数 - 1
+		合并的顺序 先上 后下 先左 再右
+	表单:
+		表单域：把表单作为容器，用于提交表单信息
+		表单控件：各行的输入，比如文本输入框，密码输入框等
+		提示信息：提示应该输入的信息
+		格式如下
+		<form action="服务器文件(目标页面)" method="提交方式，默认为get/post" enctype="编码集可设置为(text/plain)" name="区分各个表单">
+			文本输入框:<input type="类型" name="命名" value="默认文本值">
+			文本域:<textarea cols="列" rows="行">
+			<input type="radio/checkbox(单选框/复选框)" value="默认值" name="同一组单选按钮，name取值一致" checked="checked" maxlength="允许输入的最长字符数">
+			下拉菜单：<select>
+						<option>内容</option>
+						<option selected="selected(默认项)">内容</option>
+					<select>
+			邮件：<input type="email" id="" placeholder="默认值">
+				type属性:url,number,color,search
+			文件<input type="file">
+			按钮：<input type="button">
+			提交/重置：<input type="submit/reset"/>
+		</form>
+		input的属性:required：提升内容不能为空
+					placeholder：提示文本，输入框的占位符
+					autofocus：自动获取焦点，页面加载完之后输入点聚焦
+					autocomplete:提示历史内容，值为“off/on”
+					multiple:多选文件，一般在type=file里使用
+	label用于绑定一个元素，点击label标签时，被绑定的表单元素就会开始工作
+	<label for="male">Male</label> <input type="radio" name="sex" id="male" value="male">
+		结合正则表达式使用。
+	文本域
+		text 文本框 只能写一行文本
+		textarea 文本域
+	如果需要输入大量的信息，就需要用到<textarea></textarea>标签。通过textarea控件可以轻松地创建多行文本输入框，其基本语法格式如下：
+	<textarea cols="每行中的字符数" rows="显示的行数"> 文本内容 </textarea>
+		get和post区别
+				1、get请求地址栏会携带提交的数据，post不会携带（请求体里面。在第七天时候讲http协议时候）
+				2、get请求安全级别较低，post较高
+				3、get请求数据大小的限制，post没有限制
+	标签语义化：
+		1.减少无语义的div和span标签的使用
+		2.在语义不明显时，优先使用p，div有间距，p默认无间距
+		3.不要使用纯样式标签，如：b、font、u，应使用css设置
+		有语义的标签：在ie9中需要转化成块级标签
+		头(header)、导航(nav)、子导航(subnav)、侧栏(sidebar)、内容(content/container)、尾(footer)、
+		栏目(column)、登录条(loginbar)、标志(logo)、广告(banner)、页面主体(main)、
+		热点(hot)、新闻(news)、菜单(menu)、搜索(search)、友情链接(friendlink)、
+		版权(copyright)、滚动(scroll)
+	数据存储方式:localStorage和sessionStorage 都是永久存储
+css3基础 cascading style sheets：层叠样式表
+	内嵌:<style type="text/css"></style>
+	外联:<style src="ceshi.css">
+	行内:<div style=""></div>
+	注释:/*  */ 快捷键为光标所在处 CTRL+/
+	行内样式 内部样式表 外部样式表(<link>导入)
+	css的组成:选择器(选择符),声明 h1
+			类选择器(.类名可使用多次) .className
+			id选择器(#id名使用一次) #id
+			复合选择器：标签+类(ID)选择器{属性:值}，可以选择同种类下的样式，以分号隔开用于初始化样式
+			后代选择器：首选要满足包含（嵌套）关系。父集元素在前边，子集元素在后边。特点：无限制隔代。
+      			只要能代表标签，标签、类选择器、ID选择器自由组合。div ui li{}，选择div中所有的li
+      		子选择器：div>lu>li{} 选择传递下去的li
+      		属性选择器：input[type="text"][class=class1]{}
+			  		case:bottom[disabled]{}选择的是包含disabled属性的标签
+					  input[class="val"]{};选择等于val的类
+					  input[class^="val"]{};选择以val开头的类
+					  input[class$="val"]{};选择以val结尾的类
+					  input[class*="val"]{};选择包含val的类
+			结构伪类选择器 E:nth-child(m);匹配父元素中的第n个子元素E
+						E:nth-of-type(m);指定类型e的第m个,
+						m可以是数字关键字和公式，会忽略掉0和超出的数
+							even\odd;奇偶数
+							2n\2n+1;n从零开始计数，此公式也表示奇偶数
+							n+5\-n+5;第五个开始、前五个，
+				case：div:nth-child(8);div中的第八个节点
+					div span:nth-of-type(2);第二个span
+			伪元素选择器。权重为1
+				::before\after;在元素内部的前后插入内容,比如清除浮动
+				div::before{content: '插入的内容';display:block;}
+				
+	css的语法:选择器{属性:属性值;...}
+	层叠性：会执行靠后的代码
+	继承性：在嵌套关系中，文字的属性都会被继承
+	权值:继承为0.1 标签为1 类、属性、伪类为10 id为100
+	伪类
+		:link{}:链接的默认状态
+		:visited{}:访问过后的状态
+		:hover{}:鼠标滑过时
+		:active{}:链接激活后的状态,书写的顺序为lvha,
+		:focus{}:获取焦点
+	文本属性:font-style:italic;斜体。文字的默认大小为16px；2em=2*16px;使用偶数数字
+		color属性用于定义文本的颜色，其取值方式有如下3种：
+			1.预定义的颜色值，如red，green，blue等。
+			2.十六进制，如#FF0000，#FF6600，#29D794等。实际工作中，十六进制是最常用的定义颜色的方式。
+			3.RGB代码，如红色可以表示为rgb(255,0,0)或rgb(100%,0%,0%)。
+		文本的修饰：text-decoration:underline/none/line-through(文字的下划线);line-through(删除线);
+				text-indent:2em;文段首行缩进,用于seo line-height:2em;两倍行高，继承父类 letter/word-spacing:像素;字母/单词间隔；text-align:left/right/center;文本对齐方式
+	元素 display:inline-block;将行内级元素转为 行级/块级/行块级，一般转行块级
+	背景属性：background:red url("../images/1.png") no-repeat scroll 30px 40px;背景颜色 背景图片 是否平铺 滚动条(scroll/fixed,随对象滚动或者固定) 距离x轴 距离y轴;用于精灵图的使用
+		CSS3支持背景半透明的写法语法格式是:
+			~~~css background: rgba(0,0,0,0.3); ~~~
+			最后一个参数是alpha 透明度 取值范围 0~1之间
+			注意： 背景半透明是指盒子背景半透明， 盒子里面的内容不收影响。
+	布局模型:流动(Flow) 浮动(Float)
+		盒子模型：盒子大小=定义的大小+边框+内边距;使用优先级 width>padding>margin
+		嵌套的盒子外边距塌陷时：给父盒子盒子边框/超出部分隐藏
+		box-shadow:水平位置 垂直位置 模糊距离 阴影尺寸（影子大小） 阴影颜色 内/外阴影； box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+		border:像素 线类型(solid/dotted/dashed:实点虚线) 颜色;
+		圆角：border-radius:左上 右上 右下 左下;内容为px
+	元素样式转换时添加属性 transition直接改变 animation要结合@keyframes
+	代码缩写:body{
+				font-style:italic;
+				font-variant:small-caps;
+				font-weight:bold;
+				font-size:12px;
+				font-height:1.5em;
+				font-family:"宋体",sans-serif;
+			} 缩写为： body{font:italic small-caps bold 12px/1.6em "宋体",sans-serif}
+	浮动和清除浮动：
+		设置浮动属性值：float:left/right/none;
+		清除浮动主要为了解决父级元素因为子级浮动引起内部高度为0 的问题。其实本质叫做闭合浮动更好一些, 记住，清除浮动就是把浮动的盒子圈到里面，让父盒子闭合出口和入口不让他们出来影响其他元素。
+			在CSS中，clear属性用于清除浮动，其基本语法格式如下：
+			选择器{clear:属性值;}
+			left:不允许左侧有浮动元素（清除左侧浮动的影响） | | right | 不允许右侧有浮动元素（清除右侧浮动的影响） | | both | 同时清除左右两侧浮动的影响 |
+		在浮动元素下额外添加div，在div中清除所有浮动(<div style="clear:both"></div>)
+			设置父级元素溢出隐藏：overflow:hidden；盒子内的内容溢出后也会被隐藏
+		伪元素清除浮动(推荐使用)：.clearfix:after{content:".";display:block;height:0;overflow:hidden;visibility:hidden;clear:both;} .clearfix{zoom:1;}给父级元素调用，本质也是添加标签阻止浮动
+		使用before和after双伪元素清除浮动，更简洁;
+		display:table;此元素会作为块级表格来显示（类似 <table>），表格前后带有换行符。
+			使用方法：
+			.clearfix:before,.clearfix:after { content:""; display:table;} .clearfix:after { clear:both; } .clearfix { *zoom:1; }
+		zoom:检索和控制缩放比例，可以触发haslayout（IE7-浏览器的特有属性。hasLayout是一种只读属性，有两种状态：true或false。当其为true时，代表该元素有自己的布局，否则代表该元素的布局继承于父元素。
+	　　[注意]通过element.currentStyle.hasLayout可以得出当前元素的hasLayout情况）
+	溢出，盒子内部的元素
+		overflow:hidden/scroll/auto;超出部分隐藏/滚动/自动滚动,
+		给父元素设置可以解决子元素穿透问题和高度塌陷，也是一种bfc(block formatting context)块级格式化上下文.需要让元素拥有这一属性。包括浮动，定位，超出部分隐藏
+	定位position
+		边偏移；设定top和left的值；
+		定位模式：
+			父相子绝，可以解决元素的定位问题
+			绝对定位：position:static;静态定位，不改变文档流
+					position:absolute;脱离文档流，相对于浏览器窗口定位。会将行元素转为行内块
+			相对定位(重点)：position:relative;位置从自己出发，占据文档流，使用方式为父元素相对定位，子元素绝对定位，对行元素无效;不要改变文档流
+			固定定位：position:fixed;脱离文档流，相对浏览器定位，能将行元素转为行内块
+			| 定位模式       | 是否脱标占有位置 | 是否可以使用边偏移 | 移动位置基准 | | 
+			| 静态static       | 不脱标，正常模式    | 不可以 | 正常模式 | 
+			| 相对定位relative | 不脱标，占有位置     | 可以 | 相对自身位置移动（自恋型） |
+			| 绝对定位absolute | 完全脱标，不占有位置 | 可以 | 相对于定位父级移动位置 | 
+			| 固定定位fixed    | 完全脱标，不占有位置 | 可以 | 相对于浏览器移动位置（认死理型） |
+			层(Layer):
+				使用z-index的值来设置层级显示;值大优先级高；z-index:1;
+	元素的显示隐藏:css中display:none/block,此方法使用最多而且不占用位置;
+				visible=hidden/visible;对象可视隐藏;保留原有位置
+				opacity=0;元素的透明级别，取值0-1；从父元素继承
+	鼠标样式cursor
+		设置或检索在对象上移动的鼠标指针采用何种系统预定义的光标形状。	配合伪类使用 
+		cursor : default 小白 | pointer 小手 | move 移动 | text 文本
+	去轮廓,针对的是链接，表单控件
+		格式：outline: color style width;
+		<input type="text" style="outline: 0/none;"/>
+	防止拖拽文本域resize
+		resize：none;这个单词可以防止，火狐，谷歌等浏览器随意的拖动文本域。防止改变其大小影响布局
+		text-overflow;文字溢出时
+			用法:text-overflow: clip| ellipsis|string;修剪文本/显示省略号/显示设定的语句
+			注意一定要首先强制一行内显示再与overflow:hidden;一起使用
+	滑动门出现的背景
+		制作网页时，为了美观，常常需要为网页元素设置特殊形状的背景,伪按钮一般的经典布局：
+		html <li> <a href="#"> <span>导航栏内容</span> </a> </li>
+		a 设置 背景左侧，padding撑开合适宽度。
+		span 设置背景右侧， padding撑开合适宽度 剩下由文字继续撑开宽度。
+		之所以a包含span就是因为 整个导航都是可以点击的。
+	css3特性2d转换
+	transform:控制元素2d/3d转换,不影响其他元素
+		transform: translate(50%, 50%) rotate(180deg) scale(1.2);一般书写顺序
+			transform:translate(x轴位移值,y轴);
+			transform:translate3d(x轴,y轴,z轴);
+			transform:translate(100px,50%);向x轴方向位移100px，向y轴位移自身盒子高度
+			transform-origin:left bottem;缩放旋转的中心点,参数可以是百分比,像素或者方位
+			transform:rotate('N'deg);沿着元素中心的旋转角度N,会改变坐标轴方向
+				transform:rotate(-180deg);沿着中心的逆时针选择180度
+			transform: scale('缩放比例');
+				transform: scale(0.8);缩放为当前的0.8倍比例
+		3d转换,包含3d移动，旋转，透视，
+			transform:translate3d(x,y,z);参数不可省略，z表示正向内负向外
+			transform:rotateX();盒子沿着x轴旋转，值用左手定则确定旋转方向
+			transform:rotateY();盒子沿着Y轴旋转，值用左手定则确定旋转方向
+			transform:rotateZ();盒子沿着Z轴旋转，值用左手定则确定旋转方向
+			3d呈现
+				transform-style:flat/preserve-3d;写在父级元素，是否开启立体空间
+			需要做复杂的旋转效果时，需要以旋转轴为参照点
+	动画属性
+		必须项：定义动画，动画播放时长  @keyframes 动画标识符{0%/from{}100%/to{}}
+			@keyframes move{0%{transform:translate(0,0)}100%{transform:translate(100px,100px)}}
+			animation-duration: 2s;
+			可选项和缩写:animation: move 2s linear 0s 1 alternate forwards;
+				animation-timing-function:linear/ease;动画播放方式,匀速/渐变
+				animation-delay:number;动画从何时开始
+				animation-iteration-count:number;动画迭代次数，播放次数 1/2/infinite 
+				animation-direction:normel/alternate;下一周期的播放方向，正常/交替成反方向
+				animation-fill-mode:none | forwards | backwards | both;
+					动画的填充状态,也就是播放完之后的状态无任何变化/动画结束时状态/开始时的状态
+				animation-play-state:running/pause;可以结合伪类,设置悬停动画暂停
+	居中对齐总结:(float和position之后;就隐性拥有块属性)
+		a:有宽度的块级元素，水平居中，流动布局：margin:0 auto;
+		b:表格文字居中对齐：text-align:center;
+		c块状元素：加入table标签;设置display:line;
+			父相子绝方法；
+				父元素相对定位relative:可以设置float;
+				子元素absolute和left:50%;top:50%;transform:translate(-50%,-50%);
+		
+		多文本和图片垂直居中:
+			vertical-align: top| middle| baseline| bottom;顶线、中线、基线、底线
+			用法vertical-align:baseline;默认文字和图片基线对齐，底部对齐
+				vertical-align:middle;文字和图片中线对齐，垂直居中
+				vertical-align:top;文字和图片顶线对齐，顶部对齐
+			对行内块使用,图片和文字垂直居中对齐不影响块级元素中的内容对齐
+			图片或者表单等行内块元素，他的底线会和父级盒子的基线对齐，也就是会叠加在一起。这样会造成一个问题，就是图片底侧会有一个空白缝隙。
+			解决方法：a图片不与基线对齐。img{vertical: middle| top;}
+					b把img转为块级元素 img{display:block;}
+			设置相应的行高(line-height: Xpx;) 自动排列
+	把div插入一个<table>标签;
+			display:table-cell;此元素会作为一个表格单元格显示
+	margin和padding使用场合：
+		padding:
+			需要使用背景图时；在border内测添加空白；上下盒子空白加大时
+		margin：
+			在border外侧添加空白；空白处不需要背景；上下相邻盒子之间的空白抵消时
+	浏览器私有前缀,针对浏览器版本问题
+		-moz-:
+		-ms-:
+		-webkit-:
+		-o-:
+			-moz-border-radius:10px;
+			-webkit-boder-radius:10px;
+			-o-border-radius:10px;
+			border-radius:10px;
+question:
+	type="hide"的表单元素用于同页面表单传值;高宽设置为0;父元素为隐藏;(是否占用空间布局)
+	promise属性 tcp协议的三次和四次握手
+	使用css格式化网页:在head中和作为标记;作为文件使用;
+	开发规范：
+		注意事项:
+			书写顺序 场合->尺寸->装饰->颜色->其他
+			场合（position,top,right,z-index,display）
+			尺寸，各属性的数值 width,height
+			装饰：font,line-height
+			颜色：background,border
+			修饰:animation，transition
+			书写规范：尽量写缩写：border: 1px soild #fff;冒号后面打空格 {前有空格
+			 　 1.一律小写;
+			　　2.尽量用英文;
+			　　3.不加中槓和下划线;
+			　　4.尽量不缩写，除非一看就明白的单词。
+			CSS样式表文件命名
+			　　主要的 master.css
+			　　模块 module.css
+			　　基本共用 base.css
+			　　布局、版面 layout.css
+			　　主题 themes.css
+			　　专栏 columns.css
+			　　文字 font.css
+			　　表单 forms.css
+			　　补丁 mend.css
+			　　打印 print.css
+			标签：
+				*div可以包含所有标签
+				*p不能包含div，h1等标签
+				*h1可以包含p，div标签
+				*行内元素包含行内元素
+			文档：
+				*尽量使用标准流
+				*标准流解决不了的使用浮动
+				*浮动解决不了的使用定位

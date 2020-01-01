@@ -1,0 +1,284 @@
+1：debug的调试模式（断点调试，可以看到程序中的数据变化）
+	*设置一个断点，让程序停止运行在此处
+2：解决端口占用问题：在dos下，
+输入  netstat   -ano|findstr  8080 
+//说明：查看占用8080端口的进程
+显示占用端口的进程
+taskkill  /pid  占用的端口号  /f 
+//说明，运行windows自带taskkill命令，将上面显示的进程号，结束掉。
+如何制作网站：
+	1.创建一个完整的目录结构
+		创建网站名文件夹taobao，用于管理当前网站中所有文件
+		index.html/default.html：当前网站的入口文件	
+		CSS(文件夹)：管理当前所有.css文件
+		js（文件夹）：管理当前所有.js文件夹
+		images：管理 当前所有图片，分类保存
+	2.准备一张目标效果的psd文件，便于测量像素和取色
+	3.确定一个实现的思维
+		a)从上到下实现相应的效果(适合新手)
+		b）先确定网站结构，在结构填充内内容
+	4.css的初始化：清除网页中标签的初始化属性，如YUI
+开源项目的流程：
+	1、fork项目
+	2、修改自己项目代码
+	3、新建pull request
+	4、等待作者的操作
+	****使用git管理github的托管项目
+		托管各种git库，通过（https://用户名:github.io）访问
+			在git base使用命令模式创建仓库
+				使用rmdir创建文件夹
+				使用touch创建文件
+				提交到暂存区：git add 文件名
+				展示暂存区文件：git status
+				提交到仓库：git commit -m '文件描述'
+			删除文件 rm test.html
+			从git中删除：git rm yest.html
+			提交操作：git commit -m '提交描述'
+			使用远程仓库的目的：备份项目实现代码共享集中化管理。
+				过程：
+					设置用户名和邮箱：git config -- global user.name/email '用户名/邮箱'
+					a）git克隆：将远程仓库复制到本地
+					b）进行开发
+					c）同步到云端操作命令为：git push
+					若出现权限错误，可在.git/connfig中更改相应的参数
+			GitHub Page搭建站点的网页值支持静态网页
+				***访问：https://用户名.gihub.io
+				第一种方式：
+					a)创建个人站点 -->新建仓库（仓库名必须为：用户名.github.io）
+					b)创建index.html文件作为首页
+				第二种方式：
+				***访问：https://用户名.gihub.io/项目名
+					1.进入项目主页，点击setting
+					2.点击[Launch automatic page]
+					3.新建站点基础信息设置
+					4.选择主题
+					5.生成网页
+Git命令：
+	git config --global user.name 'git的用户名'
+	git config --global user.email 'git邮箱'
+	git init:初始化文件，创建.git文件
+	touch 文件名:创建文件 
+	git add 文件名:提交到暂存区
+		文件重复配置：git config core.autocrlf false
+	git commit -m 'add 文件名':描述提交到仓库的内容
+	git status:验证是否提交成功
+	vi 文件名:直接修改文件 :wq:跳出
+	rm 文件名:删除文件
+	git clone git的仓库站点:将仓库复制到本地，需要有合适的本地路径
+	https://github.com/lingyun1008/testDHTML.git
+	find . -name ".git" | xargs rm -Rf:删除本地仓库.git
+	提交到github
+		git remote rm origin 位置;先清除路径
+		git remote add origin 位置;再输入路径
+		git push -u origin master
+XML:eXtensible Markup Language：可扩展标记型语言
+	用来传输数据，多用于 配置文件
+	语法：（1）文档声明<?xml version="版本1.0或1.1" encoding="编码集" standone?>写在最前面
+		  （2）定义元素（标签）（***）空格也是节点，区分大小写不能用下划线；冒号
+		  （3）定义属性（***）属性自定义
+		  （4）注释（***）<!-- -->注释不能嵌套
+		  （5）特殊字符（***）  <> 转义 &lt;&gt;
+		  （6）CDATA区（了解）直接显示，不用转义
+		  （7）PI指令（了解）设置样式
+		所有 XML 元素都须有关闭标签
+		XML 标签对大小写敏感
+		XML 必须正确地嵌套顺序
+		XML 文档必须有根元素(只有一个)
+		XML 的属性值须加引号
+		特殊字符必须转义 --- CDATA
+		XML 中的空格、回车换行会解析时被保留
+	保存的编码和解析的编码一致
+	dtd:复杂元素<!ELEMENT 元素名称 (子元素)>
+		简单元素<!ELEMENT 元素名称(PCDATA)>
+	（1）引入外部的dtd文件
+		<!DOCTYPE 根元素名称 SYSTEM "dtd路径">
+	（2）使用内部的dtd文件
+		- <!DOCTYPE 根元素名称 [
+			<!ELEMENT person (name,age)>
+			<!ELEMENT name (#PCDATA)>
+			<!ELEMENT age (#PCDATA)>
+		]>
+	（3）使用外部的dtd文件（网络上的dtd文件）
+		<!DOCTYPE 根元素 PUBLIC "DTD名称" "DTD文档的URL">
+		- 后面学到框架 struts2 使用配置文件 使用 外部的dtd文件
+		- <!DOCTYPE struts PUBLIC   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"    
+	 (4) 使用dtd定义元素
+		*语法： <!ELEMENT 元素名 约束>
+			*简单元素：没有子元素的元素
+				<!ELEMENT name(#PCDATA)>
+				***(#PCDATA):约束name是字符串类型
+				***EMPTY:元素为空(无内容)
+				***ANY:任意的内容
+			*复杂元素：<!ELEMENT person (name,age,sex)>
+				<!ELEMENT 元素名称 (子元素)>
+				+:一次或者多次
+				?:零次和一次
+				*:零次和多次
+	  (5)使用dtd定义属性
+		*语法 <!ATTLIST 元素名称
+				属性名称 属性类型 属性的值>
+	 (6)XML的解析
+		*dom解析：根据xml的层级结构，在内存中分配一个树形结构
+		*sax解析：事件驱动，边读边解析，返回值为对象的名称
+	转义< &lt; > &gt;
+	xml的PI指令:
+jQuery:
+    //入口函数
+    $(document).ready(function () {});
+	jQuery对象和DOM对象的转换
+		DOM转JQ：var $btn1 = $(btn); // 此时就把DOM对象btn转换成了jQuery对象$btn1
+		JQ转DOM：var btn1 = $btn[0]; // 此时就把jQuery对象$btn转换成了DOM对象btn1 
+	选择器:基本选择器:$("元素");$("#id名");$(".clasName");$("*");
+	   节点选择器:
+	   		$("parent>child");子选择器(单个)
+	   		$("父元素 子元素");后代选择器(返回数组)
+			$("元素a a后的一个元素");相邻兄弟选择器
+			$("元素a a后所有兄弟元素");一般兄弟选择器
+	   筛选选择器:$("元素:first/last");匹配第一个/最后一个
+				  $("元素:eq()/gt()/lt()");等于/大于/小于索引值
+				  $("元素:even/odd");索引值  为偶数/奇数元素(索引值从0开始计时)
+	   内容筛选器:$(":contains(文本)");$(":has(元素)"); 
+				  $(":parent/empty");选择含有/没有子元素的节点
+       可见性筛选选择器:$(":visible/hidden");可见/隐藏
+   事件绑定:object.addEvenListener("事件";function();false/true)
+   操作元素特性:属性:attr(属性名,属性值/函数值);removeAttr();
+   				注意：checked、selected、disabled要使用.prop()方法。
+				内容:
+					元素:.html();获取内容 .html("设置的内容"/设置内容的函数);设置内容
+					.append();追加内容
+					 纯文本.text();获取文本 .text("设置的文本"/设置文本的函数);设置文本内容
+				表单:.val();获取文本 .val("设置的文本"/设置文本的函数);设置文本内容
+				样式:.add/removeClass("样式名");add/removeClass(function(index,currentClass));这个函数返回一个或多个空格隔开的样式名。静态更改
+					 .css();动态更改
+					 .show();显示
+					 .stop();停止动画
+
+   数据存储:jQuery.data(element,key,value);
+   DOM内部插入:.append():前面是被插入对象,后面是插入内容
+			   .appendTo():前面是插入的内容,后面是被插入的对象
+			   .prepend():向匹配的对象前置内容
+			   .prependTo():把匹配的元素前置到另一个指定元素集合中
+	  外部插入:.after/before();匹配的元素前/后插入
+	  清除:. empty();清空匹配节点中的子节点
+	  移除:.remove();移除该节点以子节点;可使用筛选器 .detach();保留数据的删除 
+      替换元素:replaceWith():替换匹配元素返回被删除元素的集合
+			   replaceAll():用集合的匹配元素替换每个目标元素
+Angular.js
+	*Model-Controller-View:模型视图控制器，为了实现关注点分离，时三种模式的总和
+	*Module:模块化，通过依赖注入的方式生成变量，减少了全局变量的使用
+	*Directive:指令系统，自定义指令系统，封装方法
+	*two-way data Bilding:双向数据绑定，视图和模型之间数据同步，；例如表单数据变化
+前端开发环境：
+	*代码编辑工具:sublime
+	*断点调试工具:batarang
+	*版本管理工具:git
+	*代码合并和混淆工具:gurnt,通过npm安装
+		npm install grunt-contrib-uglify:混淆代码
+								 -concat:合并文件
+								 -watch:监控文件变化
+	*依赖管理工具:Bower:npm install bower -g:全局目录下安装,可以下载最新的jquery:bower install jquery。检查版本兼容性
+	*单元测试工具:安装轻量级的server：http-server；karma/Jasmine
+	*集成的测试工具
+		Servlet生命周期分为三个阶段：
+
+　　1，初始化阶段  调用init()方法
+
+　　2，响应客户请求阶段　　调用service()方法
+
+　　3，终止阶段　　调用destroy()方法
+
+Servlet初始化阶段：
+
+　　在下列时刻Servlet容器装载Servlet：
+
+　　　　1，Servlet容器启动时自动装载某些Servlet，实现它只需要在web.XML文件中的<Servlet></Servlet>之间添加如下代码：
+
+<loadon-startup>1</loadon-startup> 
+　　　　2，在Servlet容器启动后，客户首次向Servlet发送请求
+
+　　　　3，Servlet类文件被更新后，重新装载Servlet
+
+　　Servlet被装载后，Servlet容器创建一个Servlet实例并且调用Servlet的init()方法进行初始化。在Servlet的整个生命周期内，init()方法只被调用一次。
+
+　　　　
+
+Servlet工作原理：
+
+　　首先简单解释一下Servlet接收和响应客户请求的过程，首先客户发送一个请求，Servlet是调用service()方法对请求进行响应的，通过源代码可见，service()方法中对请求的方式进行了匹配，选择调用doGet,doPost等这些方法，然后再进入对应的方法中调用逻辑层的方法，实现对客户的响应。在Servlet接口和GenericServlet中是没有doGet,doPost等等这些方法的，HttpServlet中定义了这些方法，但是都是返回error信息，所以，我们每次定义一个Servlet的时候，都必须实现doGet或doPost等这些方法。
+
+　　每一个自定义的Servlet都必须实现Servlet的接口，Servlet接口中定义了五个方法，其中比较重要的三个方法涉及到Servlet的生命周期，分别是上文提到的init(),service(),destroy()方法。GenericServlet是一个通用的，不特定于任何协议的Servlet,它实现了Servlet接口。而HttpServlet继承于GenericServlet，因此HttpServlet也实现了Servlet接口。所以我们定义Servlet的时候只需要继承HttpServlet即可。
+
+　　Servlet接口和GenericServlet是不特定于任何协议的，而HttpServlet是特定于HTTP协议的类，所以HttpServlet中实现了service()方法，并将请求ServletRequest,ServletResponse强转为HttpRequest和HttpResponse。
+
+public void service(ServletRequest req,ServletResponse res) 
+  throws ServletException,IOException
+{
+      HttpRequest request;
+      HttpResponse response;
+ 
+     try
+     {
+         req = (HttpRequest)request;
+         res = (HttpResponse)response;
+      }catch(ClassCastException e)
+      {
+         throw new ServletException("non-HTTP request response"); 
+      }
+      service(request,response);
+}
+    代码的最后调用了HTTPServlet自己的service(request,response)方法，然后根据请求去调用对应的doXXX方法，因为HttpServlet中的doXXX方法都是返回错误信息，
+
+protected void doGet(HttpServletRequest res,HttpServletResponse resp)
+  throws ServletException,IOException
+{
+   String protocol = req.getProtocol();
+   String msg = IStrings.getString("http.method_get_not_supported");
+   if(protocol.equals("1.1"))
+   {
+      resp.sendError(HttpServletResponse.SC.METHOD.NOT.ALLOWED,msg);
+    }
+   esle
+    {
+      resp.sendError(HttpServletResponse.SC_BAD_REQUEST,msg);
+    }
+}
+所以需要我们在自定义的Servlet中override这些方法！
+
+　　　　源码面前，了无秘密！
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Servlet响应请求阶段：
+
+　　对于用户到达Servlet的请求，Servlet容器会创建特定于这个请求的ServletRequest对象和ServletResponse对象，然后调用Servlet的service方法。service方法从ServletRequest对象获得客户请求信息，处理该请求，并通过ServletResponse对象向客户返回响应信息。
+
+　　对于Tomcat来说，它会将传递过来的参数放在一个Hashtable中，该Hashtable的定义是：
+
+private Hashtable<String String[]> paramHashStringArray = new Hashtable<String String[]>();
+　　这是一个String-->String[]的键值映射。
+
+　　HashMap线程不安全的，Hashtable线程安全。
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Servlet终止阶段：
+
+　　当WEB应用被终止，或Servlet容器终止运行，或Servlet容器重新装载Servlet新实例时，Servlet容器会先调用Servlet的destroy()方法，在destroy()方法中可以释放掉Servlet所占用的资源。
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Servlet何时被创建：
+
+　　1，默认情况下，当WEB客户第一次请求访问某个Servlet的时候，WEB容器将创建这个Servlet的实例。
+
+　　2，当web.xml文件中如果<servlet>元素中指定了<load-on-startup>子元素时，Servlet容器在启动web服务器时，将按照顺序创建并初始化Servlet对象。
+
+　　注意：在web.xml文件中，某些Servlet只有<serlvet>元素，没有<servlet-mapping>元素，这样我们无法通过url的方式访问这些Servlet，这种Servlet通常会在<servlet>元素中配置一个<load-on-startup>子元素，让容器在启动的时候自动加载这些Servlet并调用init()方法，完成一些全局性的初始化工作。
+
+
+
+Web应用何时被启动：
+
+　　1，当Servlet容器启动的时候，所有的Web应用都会被启动
+
+　　2，控制器启动web应用

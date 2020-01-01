@@ -1,0 +1,499 @@
+JavaScript
+	组成部分：EMSAScript:提供核心语言功能
+			dom(document Object modle)：提供访问和操作网页内容的方法和接口
+			bom(browser Object modle)：提供与浏览器交互的方法和接口
+	使用方式：将JS代码写在html结束标签后，合并js文件
+		内嵌:<script type="text/JavaScript"></script>;写在</body>前在解析完页面之后再加载js，减少了网页空白时间
+		外联:<script src="ceshi.js"></script>
+			<script>元素的一些属性
+				defer="defer"; 意思是延迟；js文件延迟加载,直接使用.
+				async="async"; 意思是异步；对外部文件有效，立即下载该js文件
+	注释://单行注释   /*多行注释*/
+	当出现"</script>"时，转义："<\/script>"
+	切图软件firework
+	标识符:区分大小写第一个字符为字母、下划线或"$";第二个字符才可以为数字,用于识别变量，函数
+		包含驼峰表示变量，下划线表示函数
+	数据类型：
+		原始数据类型：Number;String;boolean;undefined;null.操作的是栈中的地址
+			Undefined和任何数值计算为NaN(非数值);
+			NaN 与任何值都不相等，包括 NaN 本身;
+			isNaN();能转为数值或者布尔值返回false
+			null为空对象，undefined为变量的初始值
+			表示较大数:321000==3.21e5;
+			String类型的一旦 被创建，就无法改变，只能全部替换、和其他字面量拼接
+			0 空字符串 null undefined NaN会转为false，其他为true
+		引用数据类型：Array,Object，操作的是地址指向的具体对象，
+			Number();转化成十进制数字,转换的是String，返回NaN;需要转化的是对象，调用valueOf();是字符串，调用toString();
+			parseInt();转化成十进制;parseFloat();浮点数
+				parseInt("待转数",待转数进制数);
+			toString();返回变量的字符串，对于数字可以输出想要转化的任意进制数
+				case:var num = 10;alert(num.toString(2));// 1010;
+			判断数据类型：typeof();返回各数据类型
+
+	变量:var 变量名;用逗号分开可以定义并初始化多个变量。case:var a=1,b=2;c="c";
+		全局变量和局部变量,减少全局变量的使用,由标识符向外向上一级作用。
+		开发过程中一般使用对象的字面量：var obj={a:1,b:2,c:3};拥有多个属性
+			JSON:var json1={"a":1,"b":2,"c":3};键值对的形式
+		获取方式：for-in遍历数组内的元素
+			for(var k in json1) {
+				console.log(k);//属性
+				console.log(json[k]);//值
+
+			}//会顺序从k项开始输出每一项数组
+			var person = {
+				name : "Alan",
+				age : 16
+			};
+	操作符
+		--/++;表示已经重新赋值了
+		优先级
+			算术操作符>比较运算符>逻辑操作符>赋值运算符
+			+>==>&>=
+			+:数字与字符相加为字符
+			其他运算符:数字与数字字符相运算为数字，与其他字符为NaN
+	三元表达式：表达式?结果1:结果2;
+		var n1=3;
+		n1%2==0?alert("偶数"):alert("奇数");
+	断点调试，然语句逐句执行查看出现问题的地方，f10逐句执行，f8多断点段落执行
+	函数:封装了可以重复使用的代码块。使用的方式为：1声明函数，2调用函数.
+		函数名一般为动词
+		参数：arguments
+			function 函数名(形参1,形参2,...){}
+				形参用于接受实参,如果不存在，可以用函数名.argumens[n];进行参数访问;
+				作用域函数内部的局部变量
+			函数名(实参1,实参2,....)
+			返回值：代表函数终止。有多个返回值，则返回最后一个值。可以返回一个数组
+		是Function()的实例，函数也是对象
+		变量声明提升：函数中，定义变量在使用变量之后。执行代码时会先读取函数声明,产生的条件是位于同一作用域
+			sayName();
+			function sayName(){alert("hi")};
+		只提升变量名，不提升变量值，容易出现undefined。计算后形成NaN。
+		function 函数名(参数1;参数2){return 返回值;};
+			可以向函数传递任意数量的参数，通过arguments对象来访问这些参数;此对象为一个数组对象：arguments[0];arguments[1];和参数同步
+		var add=new Function("参数列表";"方法体和返回值");
+		匿名函数：var name=function(){} name();
+			a:用于直接调用和子调用，定义出来就执行
+		 		(function(){console.log(1)})();
+		 	b:作为事件的绑定
+		 	c:计时器的使用
+		 递归调用：函数调用自己，需要有跳出条件
+		 	求1~100和
+		 	fn(100);
+		 	function fn(a){if(a<1){return 0}return a+fn(a-1);}
+		 回调函数：把函数作为参数调用，用于定义规则，和规则的传递
+		 	fn(test);//输出test
+		 	function fn(demo){
+		 		demo();
+		 	}
+		 	functin test(){
+		 		alert("测试函数");
+		 	}
+	js代码的执行：
+		1预解析：一定先把变量名和函数名提升到作用域最前面，也就是最先执行声明操作，但不赋值，也就是声明提升，声明不调用‘函数提升优先级高于变量，且不会被变量声明覆盖，但会被变量赋值覆盖
+		2执行具体代码
+	循环:没有相应的块级作用域，在循环判断{}外部也可以调用
+		for:for(var a=0;a<arr.length;a++){}
+		switch do while  break：结束当前循环
+	 	continue：结束本次循环
+	对话框
+		alert("直接弹出内容");
+		confirm(str,str2); str1:对话框的文本内容 str2:文本框的内容
+			点击确定:返回文本框内容 取消:返回null
+		console.log();将信息输出到控制台
+		document.write();在页面输出消息
+		window.open([URL],[窗口名称],[参数字符串]):
+			window.open('','_blank/self/top','top=,left=,width=,height=,menubar=,toolbar=,scrollbars=,status=,')
+		window.close(); /  <窗口对象>.close();关闭窗口
+	事件:onclick onmouseover/out(鼠标) onchange/onselect(文本) onfocus/onblur(光标)  onload onunload
+	对象:是带有无序属性和方法的特殊数据类型，指向某一个具体事物
+	字面量创建
+		var obj = {name:'alan',age : 23,sayHi =function () {console.log('hi')} }
+	new关键字创建
+		var obj=new Object();obj是Object的实例
+		进行对象的属性绑定：obj.name=属性值;
+						obj[name]=属性值;
+	访问对象属性:objectName.propertyName
+	访问对象方法:objectName.methodName();在当前对象无方法时，会返回其原型中寻找方法
+	构造函数：抽象了一类对象的公共部分，如Person为具有个人基本信息的一类对象；能实例化对象的函数,函数名首字母大写，解决工厂模式创建对象的对象识别问题。
+		 function Person(uname, age, job) {
+            this.name = uname;
+            this.age = age;
+            this.job = job;
+            this.sayName = sayName;
+        }
+        function sayName() {
+                console.log(this.name);
+            };
+        var person1 = new Person("Alan", 16, 'teacher');
+        console.log(typeof person1);
+        console.log(person1['name']);
+        person1.sayName();
+		new 是最重要的关键字，会做四件事：1创建一个新的空对象，2会让this指向这个新对象，3通过执行构造函数，给这个新对象添加属性方法4会返回这个新对象
+		*****
+		this关键字指向的是最终调用函数的对象
+		*函数作为某个对象的方法*被该对象调用时*该对象。首先心中时刻提醒自己this是在函数执行时被绑定的，不要被任何赋值语句打乱阵脚;this永远指向调用他的对象
+			方法调用模式：当函数被保存为一个对象的属性时，它就可称为这个对象的方法。当一个方法被调用时，this被绑定到这个对象上
+			函数调用模式：当一个函数并非一个对象的属性时，那么它就是被当做函数来调用的。在此种模式下，this被绑定为全局对象，在浏览器环境下就是window对象
+			构造函数模式中：如果在一个函数前面加上new关键字来调用，那么就会创建一个连接到该函数的prototype成员的新对象，同时，this会被绑定到这个新对象上，优先级最高。
+		在特定的作用域中调用函数，用于扩充函数的作用域，实现多重继承。比起直接调用的优点是对象不需要与函数有耦合 
+			call();明确传入的多个参数，
+			apply();传入两个参数，参数二为数组，
+			bind();创建一个函数实例，this值会被绑定到传给bind()函数的值
+			例:B.apply(A,arguments);b对象调用了a对象的方法
+			   A.call(B,args1,args2);A对象调用了b对象的方法
+			   B.bind(function)();创造一个b的实例，并调用
+	遍历对象：for in
+		for(var k in obj){
+			console.log(k);遍历属性名
+			console.log(obj[k]);遍历属性值
+		}
+		原型模式：将实例的信息添加到实例的原型中,封装构造函数
+			Person.prototype.name = "string";
+			开发写法
+				function Person(){
+					name : "Alen";
+					age : 16;
+					job : "idot";
+					friend : ["shelly","Laje"];
+					}
+				Person.prototype = {
+					constructor : Person,
+					sayName : function(){
+						alert(this.name);
+					}
+				};
+				var person1 = new Person{"bob", 18, "Engineer"};
+				var person2 = nre Person{"shelly", 20, "Doctor"};
+				person1.friend.push("Van");
+		稳妥构造函数模式，安全性考虑，
+			function Person(name, age, job){
+				var obj1 = new Object();
+				//私有变量和函数体
+				obj1.sayName = function(){
+					alert(name);
+				}
+				return obj1;
+			}//除了调用sayName();无别的方式访问数据成员
+	JS内置对象
+		学习方法的功能-》参数的意义和类型-》返回值的意义和类型-》demo的测试
+	日期对象:
+		var Udate=new Date();
+		Udate.getFullYear();getMouth("0-11");getDate(); getDay(); 星期几,配合数组使用，周日为第一天;格式化日期
+		 	var newDay = new Date();
+        	var arrDay = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+        	var mouth = newDay.getMonth() + 1;
+        	var week = newDay.getDay();
+        	alert('今天是' + newDay.getFullYear() + '年' + mouth + '月' + newDay.getDate() + "日" + arrDay[week]);
+		getHours();getMinutes();getSeconds();格式化时间
+	        var h = newDay.getHours();
+	        h < 10 ? h = '0' + h : h;
+	        var m = newDay.getMinutes();
+	        m < 10 ? m = '0' + m : m;
+	        var s = newDay.getSeconds();
+	        s < 10 ? s = '0' + s : s;
+	    获得当前时间戳getTime();Date.now();
+			更改时间  Udate.setTime(Udate.getTime()+"更改的时间差");
+        // 创建一个时间戳
+        var time= +new Date();
+        var times = new Date(2019, 10, 18, 18, 0, 0);
+        var newTime = new Date('2019-12-1 18:00:00');
+	Math对象属性:E,LN2,LN10,LOG2E,LOG10E,PI
+	Math方法:
+		Math.max();min();ceil();floor();round();random();abs();
+		最大值；最小值；向上舍入；向下舍入；标准摄入；大于等于0小于1的数返回值为int;取整
+			找到数组中的最大值
+			var values = [1,2,3,4,5,6,7,8];
+			var max = Math.max.apply(Math,values);
+		数字转为字符串：String(变量)/变量.toString();
+		字符串转数字：Number(变量)/parseInt(变量);在parseInt中，会转译最前的数字，转小数时会取整，因为到了"."就停止转换了
+		生成min-max之间的随机数：var s=Math.floor(Math.randow()*(max-min+1))+min;
+	数组:
+		创建方式1：var 数组名=new Array(数组长度);可不指明长度,通过创建对象的形式
+			2字面量：var arr1=[];直接创建数组
+		Array数组属性.length;
+		检测是否为数组，返回值为Boolean
+			变量 instanceof Array;
+			Array.isArray(变量);
+		Array数组的方法:
+		arr.toString();把数组转化为字符串，用逗号分隔每一项
+		arr.valueOf();返回数组对象本身
+		Array.push();在数组末端推入任意项并返回新数组的长度
+		Array.pop();在数组末端移除一项并返回这一项
+		Array.shift();移出数组第一项并返回这一项
+		Array.unshift();在当前数组第一项之前插入任意项并返回数组长度
+		Array.concat();链接数组，新数组=数组1.concat(数组2,数组三); join("可以为空，逗号，分隔符");连接数组元素 push();向数组末尾添加元素，返回数组的新的长度
+			** 如果添加的是一个数组，这个时候把数组当做一个整体字符串添加进去
+		splice(开始,结束);截取一个子数组，返回一个数组不包括结束的元素
+			splice(2,1,"args");截取出数组第三项，再将"args"插入第三项位置
+			remove="arr1[2]";
+			remove属性会返回截取出的值
+		sort(排序方法);排序,默认Unicode码
+			清空数组需要重新赋值array=[]；
+		indexOf();lastIndexOf();结果是一致的，返回值都是元素在数组位置
+	基本包装类型：在读取基本数据类型的时候，会创建并销毁一个对应的基本包装对象
+	字符串对象:
+		toLowerCase()/toUpperCase();大小写
+		charAt(index); 返回字符串指定位置的内容
+		indexOf(检索的字符,开始的位置默认0);未检索到返回-1,检索到则返回所在位置
+		split(分割的标识,分割次数);分割字符串
+		replace();替换字符串
+		concat();拼接两个字符串
+		substring(开始,结束点); 截取字符串 substr(开始的位置,截取的数量);
+		slice(n,m);返回从n开始不包括m的字符串
+		parseInt();一个参数，将字符串转化为整型;两个参数，进制转换
+		eval();执行字符串所包含的代码;
+		isNaN();判断是否为数字类型,
+	Boolean类型对象：
+		typeof操作符对基本类型返回"boolean";对引用类型返回"object";
+		instanceof操作符测试Boolean类型返回true；测试其他类型返回false
+	在需要执行的段落前插入< 'use strice' >使用严格模式，不允许使用未声明的变量，删除变量。可以是一段js功能，也可以是一个函数内部使用严格模式
+	实现继承
+		通过原型链实现继承
+			prototype/_proto_
+			对象拥有原型，实例指针指向原型的实例
+API(application program interface)的学习：已经封装好的函数
+安全性考虑，不可访问本地文件。
+	调用者：谁调用的。参数：有无，几个。返回值：有无，什么类型。功能：干什么用的。
+	DOM:Document Object Model 文档对象模型
+		DOM有三种：
+		DOM level 1：将html文档封装成对象。
+		DOM level 2：在level 1的基础上添加新的功能，例如：对于事件和css样式的支持。
+		DOM level 3：支持xml1.0的一些新特性。
+	获取title、body、head、html标签
+		document.title --- 文档标题；
+		document.head --- 文档的头标签
+		document.body --- 文档的body标签；
+		document.documentElement --- 这个很重要它表示文档的html标签， 也就是说，基本结构当中的html标签并不是通过document.html 去访问的，而是document.documentElement 。
+		获取节点
+		元素节点:标签
+			document.getElementById(id);
+				document.getElementById('newId');获取id为'newId'的元素并返回该元素
+			document.getElementsByTagName(标签名);
+				element.document.getElementsByTagName('li');获取某个具体父元素（非伪数组）下所有的li标签返回一个伪数组
+			h5新增获取方式：document.getElementsByClassName(类名);
+				document.getElementsByClassName('newClass');获取所有类名为'newClass'的元素并返回一个伪数组
+				document.querySelector('选择器');查询选择器第一个元素返回该元素
+					document.querySelector('#div/.div/div');
+				document.querySelectorAll('选择器');获取选择器所有元素返回该伪数组
+					document.querySelectorAll('.div/div');
+				document.body;获取body返回该元素
+				document.documentElement;获取html返回该元素
+		文本节点:文本
+		属性节点:标签内的属性
+		节点属性:nodeName;返回节点名(字符串) nodeType返回节点类型(整数) nodeValue返回节点当前值
+		遍历节点树:child/parentNode子节点数组,父节点 first/lastNode头尾节点 next/previousSibling下上节点
+	event(事件):事件被触动时，鼠标和键盘的状态，通过属性来控制。事件的监听；封装事件源，添加公共class
+	事件机制：事件源>事件类型>事件处理程序
+		1触发的对象；按钮
+		2触发的方式；点击
+		3触发的结果：弹窗
+		执行事件过程：获取事件源>注册事件>添加事件处理程序
+	事件流，
+	事件的捕获、当前事件、事件的冒泡。在两个事件需要同时触发时，考虑触发的条件
+	* onclick：鼠标点击事件
+	  onchange：改变内容（一般和select一起使用）
+	  onfocus:得到焦点  (ie5、某些版本的ie6)无冒泡
+	  onblur:失去焦点，无冒泡
+	  onmouseover:鼠标经过,会冒泡，会在子盒子向上冒泡再触发一次
+	  onmouseenter:不会冒泡，只会在当前盒子触发
+	  onmouseleave;不会冒泡
+	  onmouseout:鼠标离开
+	  onkeyup/onkeydown:鼠标按下/松开时;识别所有的键
+	  onkeypress:不能识别功能键,按下时会一直触发
+	  	element.onclick=function(){};只能注册一个事件
+	  	eventTagname.addEventListener('click',fn,true);
+	  		冒泡是父子都添加了同一事件，先执行父级事件
+	  		参数为true时事件按捕获顺序执行，由父级向子集
+	  		参数为false时事件按冒泡顺序执行，由子级向父集,更常用
+	  	function fn(event){
+	  		兼容写法：event=event || window.event;
+		}
+		event.target;事件目标，返回触发事件的具体对象li，
+			this返回的是绑定事件的对象ul
+		event.type;返回事件类型，click，mouseover等
+		event.preventDefault();阻止默认的事件，链接的点击跳转，输入框提交等
+		event.stopPropagation();停止冒泡
+			event.canceBubble=true;兼容写法
+		事件的委托：给父节点设置事件监听器，利用冒泡原理影响子节点。e.target返回子节点
+		各种论坛页面的禁止复制事件：contextmenu:event.preventdefault();禁止菜单选中
+							selectstart:event.selectstart();
+		mouseEvent:e.clientX/e.clientY:鼠标在可视区域距离侧边的位置
+				e.pageX/e.pageY:相对于整个页面，重点掌握，ie9以上
+				e.screenX/e.screenY:相对于整个屏幕
+		keyboadEvent:e.keyCode;1>49;a>65;不区分大小写
+	操作元素DOM方法:思想为增删改查，属性操作，事件操作
+		增create删remove改update查query；添加属性或者样式，事件操作机制
+		修改元素内容：
+			element.innerHTML="<strong>加粗的内容</strong>";<html>里的所有内容包含标签，识别标签，保存空格换行；可以直接根据字符串创建标签而且不会页面重绘；把字符串写入数组再操作数组。效率最高
+			element.innerText='新内容';标签里的文本内容,去除换行空格
+		通过操作元素节点属性值操作属性样式
+			document.getElementById("元素").value:获取/更改该id元素值;
+			.value为表单元素特有
+			obj.style.属性="属性值";需要仔细的拼接属性值
+				var X,Y;
+				obj.style.backgroundPosition=''x'+px -'+y+'+px ';
+					控制精灵图位移到Xpx,-Ypx;位置
+				obj.style.bcakgroundImage= 'url('+图片路径+')';
+			更改类名操作样式：定义新类名，替换类名
+				element.className='newClassName';
+		使用排他思想在多个元素中某一元素样式单独显示
+		操作元素属性:
+			elementNode.内置属性;div.style.width;
+			elementNode.get/setAttribute();removeAttribute();获取自定义属性
+				elementNode.getAttribute('id');获取元素节点的id值
+				elementNode.removeAttribute('id');移除元素节点的id值
+				elementNode.setAttribute('class','newID');把元素节点的className改为'newID'
+			h5自定义属性：以data-开头.ie11以上版本支持
+				<div data-index="1"></div>
+				获取自定义属性
+					element.dataset.index
+					element.dataset['index']
+		elementNode元素节点的基本属性:nodeType;nodeName;nodeValue;
+			先获取某个元素，在访问其dom树上的关系节点
+				element.getElementById.parentNode;获取离'id'最近的父节点，获取不到返回null
+				element.children;元素下的所有元素节点
+				element.children[index];获取父元素下具体节点，开发写法
+				node.nextSibling;获取下一个节点
+				node.previousSibling;获取上一个节点
+				node.nextElementSibling;获取下一个元素节点
+				node.previousElementSibling;获取上一个元素节点
+		添加节点：先创建/复制，再插入
+			document.createElement('tagName');创建元素节点
+			document.createTextNode(内容);创建文本节点
+				var newDiv=document.createElement('div');
+			document.cloneNode();参数为null/false;浅拷贝只拷贝标签;参数为true深拷贝节点所有内容
+				document.cloneNode(true).node;
+			插入节点(创建要插入的节点,创建节点内容，插入)；
+			append/replace/removeChild()首部插入/尾部插入/删除节点
+				var div=document.querySelector('div');
+				div.appendChild(newDiv);
+			insertBefore();在父元素任意位置插入节点
+				div.insertBefore(newDiv, div.children[0]);在父元素的第一个节点前插入
+		复制节点
+	BOM:Brower Object Model 浏览器对象模型
+	操作的是window对象:
+		一些基本事件：
+		window.onload=function(){};页面加载时,只能执行一次，以最后执行的为准
+			一般使用：document.addEventListen('load',function(){});
+				document.addEventListen('DOMContentLoaded',function(){});只加载dom不加载图片，最先触发样式表ie9以上使用
+		window.onresize=function();网页尺寸变化时
+			window.innerWeidth/Height;网页的尺寸
+			document.scrollHeight/weidth
+		history:属性:length;浏览器历史URL数量
+			   方法:back();加载前一个URL无参
+				forward();加载下一个URL无参
+				go();目标URL，参数为目标url
+		location:
+			属性:protocol+.hostname+.port+.pathname+.search+.hash=.href
+				src和href，src解析时会暂停，href不会
+					protocol://hostname[:port]/pathnane/[?query]#fragment
+					协议+网址主机名+端口+路径+?查询检索内容+URL锚=当前url检索的内容用&隔开
+			方法：
+				assign('url');加载新文档，重定向，能记录浏览历史
+				reload('url');刷新页面
+				replace('url');替换,不记录历史
+					参数为具体的url
+		navigator:浏览器信息
+				属性:appCodeName:浏览器代码名字符串
+					appName:浏览器名
+					appVersion:版本
+					platform:浏览器平台
+					userAgent:发送往服务器的头部值,可以判断前往的页面
+		<script>
+	        // 判断是否再移动端打开页面，如果是再移动端，则跳转到移动端单独制作的页面
+	        if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+	            window.location.href = "../H5/index.html"; //手机
+	        }
+	   	</script>
+		screen:用于获取用户的屏幕信息,如高宽等 availHeight/Width
+	计时器:set/clearTimeout(标识符;毫秒数) 指定延迟时间之后执行代码/取消（执行一次）
+		   setInterval(标识符;毫秒数; 每隔指定时间执行代码
+		   clearInterval(与set匹配清除的id);清除定时器
+		   直接使用：setInerval(fn,2000);每隔两秒执行fn;
+			var timer=null;timer=setInterval(fn,2000);clearInterval(timer);
+		重点是要采取节流的思想，开启定时器的时候先清除定时器
+	三大系列
+		offset:检测，只读。常用于获取元素的位置。获取盒子距离左/上侧具有定位的父盒子的距离数值（没有父盒子返回body），四舍五入取整返回Number。
+		style.left获取的是整个样式值(100px;)	（赋值的时候也是直接赋值）
+			offsetHeight/offsetWidth:测量盒子本身的高宽，padding+border+盒子
+			offsetLeft/offsetTop:与具有定位父盒子左上距离
+			offsetParant:返回带有定位的父盒子，未定位时返回body
+		scroll:常用于获取滚动测量值
+			scrollTop/scrollLeft:返回盒子滚动的测量值
+				element.scrollTop;返回元素的滚动测量值
+				window.pageXOffset;返回整个页面的下拉滚动值
+			scrollHeight/Width:检测盒子的宽高。（调用者：节点元素。属性。）盒子内容的宽高。（如果有内容超出了盒子边框，返回所有内容的高度）
+				IE567可以比盒子小。 IE8+火狐谷歌不能比盒子小
+			兼容写法：var scrollTop=window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+			onscroll事件:只要页面滚动无论向左向右，向上向下，哪怕只有1px，都会触动这个事件
+		clientWidth/clientHeight:返回盒子不包含边框的测量值，常用于获取元素大小
+			clientX/clientY: 鼠标位于浏览器的左侧和顶部的距离。（浏览器大小和位置）
+		********
+			pageY/pageX: 绑定在鼠标事件中，鼠标位于整个网页页面的顶部和左侧部分的距离。（页面,兼容写法：
+				在页面的位置=看得见的+看不见的
+				pageX/pageY=event.clientX/clientY+scroll()top/scrollLeft;
+				鼠标在盒子内部的距离
+					X方向：element.addEventListener('mousemove',function(e){var x=e.pageX-this.offsetLeft;var y=e.pageY-this.offsetTop;});
+			screenY/screenX: 鼠标位于屏幕的上方和左侧的距离。（屏幕）
+	屏幕跳转
+		window.scrollTo
+		方法可把内容滚动到指定的坐标。
+		格式：
+		scrollTo(xpos,ypos)
+		xpos	必需。要在窗口文档显示区左上角显示的文档的 x 坐标。
+		ypos	必需。要在窗口文档显示区左上角显示的文档的 y 坐标
+	立即执行函数
+		(function(){}())
+		(function(){})()
+		>flexible.js：立即执行控制页面的fontSize>rem
+			页面重载：a链接|F5|前进后退；会触发
+				window.load();有兼容问题
+				window.pageshow();无兼容问题
+	制作动画效果的时候，考虑节流阀的使用，防止动画播放过快
+移动端效果实现
+	移动端事件:
+		触屏事件:touchstart:点击元素时
+			touchmove:在元素上滑动时
+			touchend:离开元素时
+				element.touchstart=function(){}
+			事件的对象:.touches;返回一个数组：正在触碰页面的所有手指的列表
+					.targetTouches;返回一个数组：触碰相应元素的手指的列表
+					.changedTouches;返回手指改变的列表，触摸和离开
+	表单提交方式
+	正则表达式
+		//trim();去除前后的空格
+        var str = "     你好  我很好！     ";
+        console.log(str);
+        console.log(str.trim());
+        //replace(); 替换和全局替换值。
+        var str = "Today is fine day,today is fine day!"
+        console.log(str);
+        console.log(str.replace(/today/ig,"tomorrow"));
+        //search();  给字符插入索引
+        var str = "abcdefg";
+        console.log(str.search(/bc/));
+        console.log(str.indexOf("bc"));
+        \d;\D:数字和非数字
+        \s;\S:空白和非空白
+        \w;\W:单词和非单词
+	* 使用submit提交
+	<form>
+		.....
+		<input type="submit" />
+	</form>
+
+	* 使用button提交表单
+		- 代码
+		//实现提交方法
+		function form1() {
+			//获取form
+			var form1 = document.getElementById("form1");
+			//设置action
+			form1.action = "hello.html";
+			//提交form表单
+			form1.submit();
+		}
+
+	* 使用超链接提交
+		- 代码
+		<a href="hello.html?username=123456">使用超链接提交</a>
